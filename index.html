@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlumniConnect - Alumni Mentorship & Discussion Platform</title>
+  <meta name="description" content="Connect with experienced alumni for mentorship, career guidance, and open discussion forum.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Premium Header -->
+  <header>
+    <div class="header-container">
+      <a href="#" class="logo-section" id="logo-home">
+        <div class="logo-icon">A</div>
+        AlumniConnect
+      </a>
+      
+      <nav id="header-nav" style="display: none;">
+        <ul class="nav-links">
+          <li><button class="nav-btn active" id="nav-mentors">Explore Mentors</button></li>
+          <li><button class="nav-btn" id="nav-forum">Discussion Forum</button></li>
+          <li><button class="nav-btn" id="nav-dashboard">Dashboard</button></li>
+        </ul>
+      </nav>
+      
+      <div class="header-actions" id="header-actions" style="display: none;">
+        <div class="role-toggle-container">
+          <span class="role-option active" id="role-student" data-role="student">Student</span>
+          <span class="role-option" id="role-mentor" data-role="mentor">Mentor</span>
+        </div>
+        <button class="btn-secondary" id="btn-logout" style="padding: 0.4rem 1rem; font-size: 0.85rem; border-radius: 50px; font-weight: 600; cursor: pointer; transition: var(--transition-smooth); margin-left: 0.5rem;">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main>
+    
+    <!-- 0. Login Section -->
+    <section id="view-login" class="view-section active">
+      <div style="max-width: 450px; margin: 4rem auto; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: var(--border-radius-lg); padding: 2.5rem; backdrop-filter: var(--glass-blur); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(99, 102, 241, 0.05); text-align: center;">
+        <h2 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; background: linear-gradient(135deg, #fff 40%, var(--accent-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Welcome to AlumniConnect</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 2rem;">Sign in to access mentorship and discussions</p>
+        
+        <form id="form-login">
+          <div class="form-group" style="text-align: left;">
+            <label for="login-email">Email or Username</label>
+            <input type="text" id="login-email" placeholder="student@example.com or mentor@example.com" required value="student@example.com">
+          </div>
+          <div class="form-group" style="text-align: left;">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" placeholder="••••••••" required value="password">
+          </div>
+          <div class="form-group" style="text-align: left;">
+            <label for="login-role">Sign in as</label>
+            <select id="login-role" required style="background-color: #0b111e; color: var(--text-main);">
+              <option value="student">Student User</option>
+              <option value="mentor">Alumni Mentor</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem; padding: 0.9rem;">
+            Sign In
+          </button>
+        </form>
+        
+        <div style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
+          Demo accounts:<br>
+          Student: <code>student@example.com</code> / <code>password</code><br>
+          Mentor: <code>mentor@example.com</code> / <code>password</code>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 1. Explore Mentors Section -->
+    <section id="view-mentors" class="view-section">
+      <div class="section-header">
+        <div class="section-title">
+          <h1>Find Your Perfect Mentor</h1>
+          <p>Connect with alumni working at top companies globally</p>
+        </div>
+        <button class="btn-primary" id="btn-open-register-mentor">
+          <span>✨</span> Become a Mentor
+        </button>
+      </div>
+
+      <div class="search-filter-bar">
+        <div class="search-input-wrapper">
+          <input type="text" id="mentor-search" placeholder="Search by name, bio, or experience...">
+        </div>
+        <select class="filter-select" id="mentor-domain-filter">
+          <option value="all">All Domains</option>
+          <option value="software">Software Engineering</option>
+          <option value="data">Data Science & AI</option>
+          <option value="product">Product Management</option>
+          <option value="design">UI/UX Design</option>
+          <option value="finance">Finance & Consulting</option>
+        </select>
+        <select class="filter-select" id="mentor-availability-filter">
+          <option value="all">Any Availability</option>
+          <option value="weekdays">Weekdays</option>
+          <option value="weekends">Weekends</option>
+        </select>
+      </div>
+
+      <div class="mentors-grid" id="mentors-list-container">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+    </section>
+
+    <!-- 2. Discussion Forum Section -->
+    <section id="view-forum" class="view-section">
+      <div class="section-header">
+        <div class="section-title">
+          <h1>Discussion Forum</h1>
+          <p>Share insights, ask questions, and learn from the alumni community</p>
+        </div>
+        <button class="btn-primary" id="btn-open-ask-forum">
+          <span>💬</span> Ask a Question
+        </button>
+      </div>
+
+      <div class="forum-layout">
+        <!-- Main Forum posts -->
+        <div class="forum-main" id="forum-posts-container">
+          <!-- Rendered dynamically by JavaScript -->
+        </div>
+
+        <!-- Sidebar Categories -->
+        <div class="forum-sidebar">
+          <div class="sidebar-widget">
+            <h3 class="widget-title">Categories</h3>
+            <ul class="category-list">
+              <li class="category-item active" data-category="all">
+                <button>All Discussions <span></span></button>
+              </li>
+              <li class="category-item" data-category="career">
+                <button>Career Advice <span></span></button>
+              </li>
+              <li class="category-item" data-category="interview">
+                <button>Interview Prep <span></span></button>
+              </li>
+              <li class="category-item" data-category="tech">
+                <button>Technology Trends <span></span></button>
+              </li>
+              <li class="category-item" data-category="referral">
+                <button>Referrals & Jobs <span></span></button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Dashboard Section -->
+    <section id="view-dashboard" class="view-section">
+      <div class="section-header">
+        <div class="section-title">
+          <h1 id="dashboard-title">Student Dashboard</h1>
+          <p>Manage your requests, connections, and discussions</p>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <!-- Left Panel: Bookings -->
+        <div class="dashboard-panel">
+          <h3 class="panel-title" id="bookings-panel-title">
+            Mentorship Bookings
+          </h3>
+          <div class="bookings-list" id="dashboard-bookings-container">
+            <!-- Rendered dynamically by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Right Panel: Discussion Activity -->
+        <div class="dashboard-panel">
+          <h3 class="panel-title">
+            Your Forum Activity
+          </h3>
+          <div class="bookings-list" id="dashboard-activity-container">
+            <!-- Rendered dynamically by JavaScript -->
+          </div>
+        </div>
+        
+        <!-- Third Panel: Manage Mentor Profile -->
+        <div class="dashboard-panel" id="dashboard-profile-panel" style="grid-column: 1 / -1; margin-top: 0.5rem; display: none;">
+          <h3 class="panel-title">
+            Manage Your Mentor Profile
+          </h3>
+          <form id="form-dashboard-profile">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; margin-bottom: 1.25rem;">
+              <div class="form-group" style="margin-bottom: 0;">
+                <label for="db-mentor-name">Display Name</label>
+                <input type="text" id="db-mentor-name" required>
+              </div>
+              <div class="form-group" style="margin-bottom: 0;">
+                <label for="db-mentor-domain">Domain</label>
+                <select id="db-mentor-domain" required style="background-color: #0b111e; color: var(--text-main);">
+                  <option value="software">Software Engineering</option>
+                  <option value="data">Data Science & AI</option>
+                  <option value="product">Product Management</option>
+                  <option value="design">UI/UX Design</option>
+                  <option value="finance">Finance & Consulting</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin-bottom: 0;">
+                <label for="db-mentor-experience">Years of Experience</label>
+                <input type="number" id="db-mentor-experience" min="1" max="50" required>
+              </div>
+              <div class="form-group" style="margin-bottom: 0;">
+                <label for="db-mentor-availability">Availability</label>
+                <select id="db-mentor-availability" required style="background-color: #0b111e; color: var(--text-main);">
+                  <option value="weekdays">Weekdays</option>
+                  <option value="weekends">Weekends</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="db-mentor-bio">Biography</label>
+              <textarea id="db-mentor-bio" placeholder="Update your professional biography here..." required></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">Save Changes</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modals -->
+
+  <!-- Booking Modal -->
+  <div class="modal-overlay" id="modal-booking">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">Book a Mentorship Session</h3>
+        <button class="modal-close" id="btn-close-booking">&times;</button>
+      </div>
+      <form id="form-booking">
+        <input type="hidden" id="booking-mentor-id">
+        <div class="form-group">
+          <label>Mentor</label>
+          <input type="text" id="booking-mentor-name" disabled style="background: rgba(255, 255, 255, 0.05); color: var(--text-muted)">
+        </div>
+        <div class="form-group">
+          <label for="booking-date">Date</label>
+          <input type="date" id="booking-date" required>
+        </div>
+        <div class="form-group">
+          <label for="booking-time">Preferred Time Slot</label>
+          <input type="time" id="booking-time" required>
+        </div>
+        <div class="form-group">
+          <label for="booking-message">Topic / What do you need help with?</label>
+          <textarea id="booking-message" placeholder="Describe your expectations, questions, or target roles..." required></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" id="btn-cancel-booking">Cancel</button>
+          <button type="submit" class="btn-primary">Send Request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Register Mentor Modal -->
+  <div class="modal-overlay" id="modal-register-mentor">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">Register as a Mentor</h3>
+        <button class="modal-close" id="btn-close-register-mentor">&times;</button>
+      </div>
+      <form id="form-register-mentor">
+        <div class="form-group">
+          <label for="mentor-name">Full Name</label>
+          <input type="text" id="mentor-name" placeholder="e.g. John Doe" required>
+        </div>
+        <div class="form-group">
+          <label for="mentor-domain">Domain</label>
+          <select id="mentor-domain" required>
+            <option value="software">Software Engineering</option>
+            <option value="data">Data Science & AI</option>
+            <option value="product">Product Management</option>
+            <option value="design">UI/UX Design</option>
+            <option value="finance">Finance & Consulting</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="mentor-experience">Years of Experience</label>
+          <input type="number" id="mentor-experience" min="1" max="50" placeholder="e.g. 5" required>
+        </div>
+        <div class="form-group">
+          <label for="mentor-bio">Brief Bio</label>
+          <textarea id="mentor-bio" placeholder="Tell us about your background, expertise, and company..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="mentor-availability">Availability</label>
+          <select id="mentor-availability" required>
+            <option value="weekdays">Weekdays</option>
+            <option value="weekends">Weekends</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" id="btn-close-register-mentor-cancel">Cancel</button>
+          <button type="submit" class="btn-primary">Register</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Ask Question Modal -->
+  <div class="modal-overlay" id="modal-ask-forum">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">Post in Forum</h3>
+        <button class="modal-close" id="btn-close-ask-forum">&times;</button>
+      </div>
+      <form id="form-ask-forum">
+        <div class="form-group">
+          <label for="forum-title">Question Title</label>
+          <input type="text" id="forum-title" placeholder="Be specific and clear..." required>
+        </div>
+        <div class="form-group">
+          <label for="forum-category">Category</label>
+          <select id="forum-category" required>
+            <option value="career">Career Advice</option>
+            <option value="interview">Interview Prep</option>
+            <option value="tech">Technology Trends</option>
+            <option value="referral">Referrals & Jobs</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="forum-body">Description</label>
+          <textarea id="forum-body" placeholder="Provide background context or clarify your question details..." required></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" id="btn-close-ask-forum-cancel">Cancel</button>
+          <button type="submit" class="btn-primary">Post Question</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 AlumniConnect Platform. Designed for mentorship and professional growth.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
